@@ -44,7 +44,7 @@ export default function PartyCard({ candidate, setVotesResult }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, minHeight: 350 }}>
       <CardHeader
         avatar={<Avatar aria-label="recipe">{`${candidate.paslonNumber}`}</Avatar>}
         subheader={`Pasang Calon No ${candidate.paslonNumber}`}
