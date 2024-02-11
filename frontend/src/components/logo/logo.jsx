@@ -23,7 +23,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   const logo = (
     <Box
       component="img"
-      src="/assets/logo_kab_bandung.svg"
+      src="/assets/Logo_Kabupaten_Garut.svg"
       sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
     />
   );
