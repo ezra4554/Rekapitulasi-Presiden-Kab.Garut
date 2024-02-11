@@ -33,16 +33,16 @@ const tpsController = {
         }
 
         // Create TPS documents for the village
-        const tpsEntries = tps.map((tpsData) => ({
-          number: tpsData.number,
-          total_voters: tpsData.total_voters,
-          village_id: village._id,
-          village_code: village.code,
-          district_id: village.district_id,
-        }));
-
-        // Add the TPS documents to the array
-        tpsDocuments.push(...tpsEntries);
+        for (const tpsData of tps) {
+          const tpsEntry = {
+            number: tpsData.number,
+            total_voters: tpsData.total_voters,
+            village_id: village._id,
+            village_code: village.code,
+            district_id: village.district_id,
+          };
+          tpsDocuments.push(tpsEntry);
+        }
       }
 
       // Use insertMany to insert all TPS documents at once
@@ -54,14 +54,16 @@ const tpsController = {
         const village = await Village.findOne({ code: village_code });
 
         // Find the corresponding TPS documents using the number and total_voters
-        const correspondingTps = tps.map((tpsData) => {
+        const correspondingTps = [];
+        for (const tpsData of tps) {
           const { number, total_voters } = tpsData;
-          return insertedTps.find(
+          const matchingTps = insertedTps.find(
             (insertedTpsData) =>
               insertedTpsData.number === number &&
               insertedTpsData.total_voters === total_voters
           );
-        });
+          correspondingTps.push(matchingTps);
+        }
 
         // Update the village.tps array with the corresponding TPS document IDs
         village.tps.push(...correspondingTps.map((tps) => tps._id));
@@ -69,20 +71,31 @@ const tpsController = {
         // Save the updated village with the new TPS references
         await village.save();
 
-        //create user for each tps
+        // Create user for each TPS
         const salt = await bcrypt.genSalt(10);
-        const username = (text) => {
-          text.toLowerCase().replace(/ /g, "_");
-        };
-        for (const tps of insertedTps) {
+        for (const tps of correspondingTps) {
+          console.log(tps.village_id);
+          const username = tps.number.toLowerCase().replace(/ /g, "_");
           const user = {
-            username: username(tps.number),
-            password: await bcrypt.hash(username(tps.number), salt),
+            username,
+            password: await bcrypt.hash(username, salt),
             tps_id: tps._id,
+            role: "user_tps",
             village_id: tps.village_id,
             district_id: tps.district_id,
           };
-          await User.create(user);
+          try {
+            await User.create(user);
+          } catch (error) {
+            console.error(error);
+            return apiHandler({
+              res,
+              status: "error",
+              code: 500,
+              message: "Internal Server Error",
+              error: { type: "InternalServerError", details: error.message },
+            });
+          }
         }
       }
 

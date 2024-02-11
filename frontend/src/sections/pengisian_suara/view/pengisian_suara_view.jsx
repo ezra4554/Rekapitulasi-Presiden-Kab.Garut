@@ -64,6 +64,7 @@ export default function PengisianSuaraView() {
 
     return formattedDate;
   }
+  console.log(tpsList);
   useEffect(() => {
     const handleGetAllParties = async () => {
       try {
@@ -329,7 +330,7 @@ export default function PengisianSuaraView() {
                       disabled={!kelurahan}
                     >
                       <MenuItem value="" disabled>
-                        Pilih TPS
+                        Pilih Petugas
                       </MenuItem>
                       {tpsList.map((option) => (
                         <MenuItem key={option._id} value={option._id}>

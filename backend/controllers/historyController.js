@@ -23,7 +23,7 @@ const historyController = {
           status: "error",
           code: 404,
           message: "History tps not found",
-          data: null,
+          data: [],
           error: null,
         });
       }
