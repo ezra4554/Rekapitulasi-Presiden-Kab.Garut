@@ -74,7 +74,6 @@ const tpsController = {
         // Create user for each TPS
         const salt = await bcrypt.genSalt(10);
         for (const tps of correspondingTps) {
-          console.log(tps.village_id);
           const username = tps.number.toLowerCase().replace(/ /g, "_");
           const user = {
             username,

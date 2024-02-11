@@ -11,6 +11,9 @@ import tpsRoutes from "./routes/tps.routes.js";
 import rekapRoutes from "./routes/rekap.routes.js";
 import historyRoutes from "./routes/history.routes.js";
 import candidatesPresRoutes from "./routes/candidatesPres.routes.js";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import path from "path";
 
 import cors from "cors";
 
@@ -44,6 +47,19 @@ app.use("/api/v1/rekap", rekapRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/history", historyRoutes);
 app.use("/api/v1/candidates", candidatesPresRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
+  const rootPath = path.resolve(__dirname, "../");
+
+  app.use(express.static(path.join(rootPath, "frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(rootPath, "frontend/dist/index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Server started at  http://localhost:${PORT}`);

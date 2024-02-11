@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000/api/v1/candidates';
+const BASE_URL = '/api/v1/candidates';
 
 const candidateService = {
   bulk: async (userData) => {
