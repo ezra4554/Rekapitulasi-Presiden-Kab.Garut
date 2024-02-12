@@ -229,7 +229,7 @@ export default function PengisianSuaraView() {
           {user.role === 'user_tps' && (
             <>
               <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-                Input suara sah di Kelurahan {tps.village_name} - {tps.number}
+                Input suara sah di {tps.village_name} - {tps.number}
               </Typography>
               <Grid container spacing={2} mb={5}>
                 {candidates.map((data) => (
