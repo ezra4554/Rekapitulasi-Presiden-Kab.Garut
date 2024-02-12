@@ -226,11 +226,6 @@ export default function CetakDataView() {
     }
   };
 
-  function capitalize(str) {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-  }
-
   // print area function
   const handlePrint = async () => {
     const prevGridSize = { ...getGridSize };
@@ -276,12 +271,12 @@ export default function CetakDataView() {
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
         {kecamatan && kelurahan && (
           <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-            Data di Kelurahan {capitalize(kelurahan.name)}, Kecamatan {capitalize(kecamatan.name)}
+            Data di {kelurahan.name}, {kecamatan.name}
           </Typography>
         )}
         {kecamatan && !kelurahan && (
           <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
-            Data di Kecamatan {capitalize(kecamatan.name)}
+            Data di {kecamatan.name}
           </Typography>
         )}
       </Stack>
