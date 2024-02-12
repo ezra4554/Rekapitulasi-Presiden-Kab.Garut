@@ -344,7 +344,7 @@ const getValidBallotsHelper = async (validBallots) => {
             total_votes: 0,
           };
         }
-        acc[candidateId].total_votes = candidate.total_votes;
+        acc[candidateId].total_votes += candidate.total_votes;
       }
 
       return acc;
