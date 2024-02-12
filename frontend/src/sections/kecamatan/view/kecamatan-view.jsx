@@ -66,10 +66,10 @@ export default function KecamatanView() {
         const getKelurahans = await rekapService.getAllVillagesByDistrictIdWithRekapVotes(
           user.district_id
         );
-        const getParties = await rekapService.getAllRekapBallotsByDistrictId(user.district_id);
-        setDataSuaraKecamatans(getParties.data);
-        console.log(getParties);
-        setCandidates(getParties.data.valid_ballots_detail);
+        const getCandidates = await rekapService.getAllRekapBallotsByDistrictId(user.district_id);
+        setDataSuaraKecamatans(getCandidates.data);
+        console.log(getCandidates);
+        setCandidates(getCandidates.data.valid_ballots_detail);
         setKelurahans(getKelurahans.data);
         setLoading(false);
       }
@@ -86,11 +86,11 @@ export default function KecamatanView() {
     const getKelurahans = await rekapService.getAllVillagesByDistrictIdWithRekapVotes(
       selectedKecamatan._id
     );
-    const getParties = await rekapService.getAllRekapBallotsByDistrictId(selectedKecamatan._id);
-    setDataSuaraKecamatans(getParties.data);
-    // console.log(getParties.data.valid_ballots_detail);
-    setCandidates(getParties.data.valid_ballots_detail);
-    // console.log(getParties.valid_ballots_detail);
+    const getCandidates = await rekapService.getAllRekapBallotsByDistrictId(selectedKecamatan._id);
+    setDataSuaraKecamatans(getCandidates.data);
+    // console.log(getCandidates.data.valid_ballots_detail);
+    setCandidates(getCandidates.data.valid_ballots_detail);
+    // console.log(getCandidates.valid_ballots_detail);
     setKelurahans(getKelurahans.data);
     // console.log(getKelurahans.data);
     setLoading(false);
