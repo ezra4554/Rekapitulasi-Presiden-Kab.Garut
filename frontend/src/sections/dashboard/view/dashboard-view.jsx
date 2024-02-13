@@ -109,7 +109,7 @@ export default function DashboardView() {
   return (
     <Container maxWidth="xl" ref={pdfRef}>
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Data Kabupaten Bandung
+        Data Kabupaten Garut
       </Typography>
       {loading ? (
         <LinearProgress color="primary" variant="query" />
